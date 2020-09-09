@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live HTML Editor</title>
+    <style>
+        html,body { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%; 
+            overflow: hidden;
+        }
+        
+        #editor {
+            height: 100%;
+            width: 50%;
+            display: inline-block;
+        }
+        
+        #container {
+            height: 100%;
+            width: auto;
+            white-space: nowrap; 
+            overflow: hidden;
+            position:relative;
+        }
+        
+        #iframe {
+            height: 100%;
+            display: inline-block;
+            width: 50%;
+        }
+        </style>
+</head>
+<body>
+    <div id="container">
+        <div id="editor"></div>
+        <iframe frameborder="0" id="iframe"></iframe>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q==" crossorigin="anonymous"></script>
+<script>
+function updateOutput()
+{
+	var iframe = document.getElementById('iframe').contentWindow.document;
+
+	iframe.open();
+	iframe.write(editor.getValue());
+	iframe.close();
+}
+
+function editorSetup()
+{
+  window.editor = ace.edit('editor');
+  editor.setTheme('ace/theme/monokai');
+  editor.getSession().setMode('ace/mode/html');
+  editor.setValue(`<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+</body>
+
+</html>`, 1); //1 = moves cursor to end
+
+  editor.getSession().on('change', function() {
+    updateOutput();
+  });
+
+  editor.focus();
+  
+  
+  editor.setOptions({
+    fontSize: '16pt',
+    showLineNumbers: false,
+    showGutter: false,
+    vScrollBarAlwaysVisible:true,
+    enableBasicAutocompletion: false, 
+    enableLiveAutocompletion: false
+  });
+
+  editor.setShowPrintMargin(false);
+  editor.setBehavioursEnabled(false);
+}
+
+editorSetup();
+updateOutput();
+</script>
+</body>
+</html>
