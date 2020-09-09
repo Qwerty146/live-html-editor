@@ -42,8 +42,8 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q==" crossorigin="anonymous"></script>
 <script>
-function updateOutput()
-{
+function updateOutput() {
+
 	var iframe = document.getElementById('iframe').contentWindow.document;
 
 	iframe.open();
@@ -51,8 +51,8 @@ function updateOutput()
 	iframe.close();
 }
 
-function editorSetup()
-{
+function editorSetup() {
+
   window.editor = ace.edit('editor');
   editor.setTheme('ace/theme/monokai');
   editor.getSession().setMode('ace/mode/html');
